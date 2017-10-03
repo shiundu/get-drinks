@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Products</h1>
+<div class="table-responsive">
+  <table class="table table-striped jambo_table bulk_action">
+    <thead >
+      <tr class="headings">
+        <th class="column-title">Category</th>
+        <th class="column-title">Name</th>
+        <th class="column-title">Currency</th>
+        <th class="column-title">Price</th>
+        <th class="column-title"></th>
+        <th class="column-title"></th>
+        <th class="column-title"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td class=" "><%= product.category_id %></td>
+          <td class=" "><%= product.name %></td>
+          <td class=" "><%= product.currency %></td>  
+          <td class="a-right a-right "><%= product.price %></td>      
+          <td class=" "><%= link_to 'Show', product, class: 'btn btn-default' %></td>
+          <td class=" "><%= link_to 'Edit', edit_product_path(product), class: 'btn btn-default' %></td>
+          <td class=" "><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-default' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<br>
+
+<%= link_to 'New Product', new_product_path, class: 'btn btn-default' %>
