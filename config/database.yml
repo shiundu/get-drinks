@@ -50,7 +50,6 @@ production:
    adapter: postgresql
    encoding: unicode
    database: dreovoj2hdo8l
-   port: 5432
    username: vohlwdcrhvverp
    password: 0eb41017d1cd965846056e6b2ced7752ec1c163794f9c433269d080bd524e864
 
