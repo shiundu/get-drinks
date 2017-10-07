@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
+use App\Company;
+
 
 class ProductController extends Controller
 {
@@ -13,8 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
-        return view('products.index');
+        $products = Product::all();
+        return view('products.index', ['products'=>$products]);
         // return view('products.profile', ['user' => User::findOrFail($id)]);
     }
 
@@ -26,7 +29,7 @@ class ProductController extends Controller
     public function create()
     {
         //
-        $companies = [];
+        $companies = Company::all();
         return view('products._form', ['companies'=>$companies]);
     }
 
@@ -38,7 +41,15 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $product = new Product;
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->currency = $request->currency;
+        $product->company_id = $request->company_id;
+        $product->description = $request->description;
+        $product->save();
+
+        return $this->index();
     }
 
     /**

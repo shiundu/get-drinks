@@ -36,34 +36,41 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left">
+                    <form method="POST" action="/products" class="form-horizontal form-label-left">
+                      {{ csrf_field() }}
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Company</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <select class="form-control">
-                          @foreach ($companies as $company)
-    
-                            <option value="<?php echo $company->id; ?>">{$company->name}</option>
-                        @endforeach
+                          <select name="company_id" class="form-control">
+                            <option >Select Company</option>
+                          @foreach($companies as $company)
+                            <option value="<?php echo $company->id; ?>"><?php echo $company->name; ?></option>
+                          @endforeach
                           </select>
                         </div>
                       </div>  
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Name</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Default Input">
+                          <input type="text" name="name" class="form-control" placeholder="Default Input">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Currency </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Disabled Input">
+                          <input type="text" name="currency" class="form-control" placeholder="Disabled Input">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Price</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Read-Only Input">
+                          <input type="text" name="price" class="form-control" placeholder="Read-Only Input">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="description" class="form-control" placeholder="Read-Only Input">
                         </div>
                       </div>
                       

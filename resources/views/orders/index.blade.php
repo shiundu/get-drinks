@@ -205,6 +205,6 @@
               </div>
 
               <div class="col-md-12 col-sm-12 col-xs-12">
-                <a href="<?php echo route('orders.create'); ?>"><button type="button" class="btn btn-default">New Product</button></a>
+                <a href="<?php echo route('orders.create'); ?>"><button type="button" class="btn btn-default">New Order</button></a>
               </div>
 @endsection

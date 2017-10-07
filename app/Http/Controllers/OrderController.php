@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Product;
+use App\Customer;
 
 class OrderController extends Controller
 {
@@ -25,7 +27,9 @@ class OrderController extends Controller
     public function create()
     {
         //
-        return view('orders.index');
+        $products = Product::all();
+        $customers = Customer::all();
+        return view('orders._form', ['products'=>$products, 'customers'=>$customers]);
     }
 
     /**
@@ -36,7 +40,14 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        echo $request->customer_id;
+        //print_r($request->products);
+        foreach ($request->products as $key => $value) {
+            if(count($value)> 0)
+            {
+                echo $key.': '.$value .'</br>';
+            }
+        }
     }
 
     /**

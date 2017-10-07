@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Gentelella Alela! | </title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Get Drinks! | </title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -56,12 +56,6 @@
                   <li><a href="<?php echo route('products.index'); ?>"><i class="fa fa-home"></i> Products </span></a>
                   <li><a href="<?php echo route('customers.index'); ?>"><i class="fa fa-home"></i> Customers </span></a>
                   <li><a href="<?php echo route('companies.index'); ?>"><i class="fa fa-home"></i> Companies </span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.html">Dashboard</a></li>
-                      <li><a href="index2.html">Dashboard2</a></li>
-                      <li><a href="index3.html">Dashboard3</a></li>
-                    </ul>
-                  </li>
                 </ul>
               </div>
             </div>

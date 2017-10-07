@@ -12,7 +12,7 @@
                     @endauth
                 </div>
             @endif
-
+            
             <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
@@ -36,34 +36,48 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left">
+                    <form method="POST" action="/customers" class="form-horizontal form-label-left">
+                      {{ csrf_field() }}
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Company</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">First Name</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <select class="form-control">
-                          @foreach ($companies as $company)
-    
-                            <option value="<?php echo $company->id; ?>">{$company->name}</option>
-                        @endforeach
-                          </select>
-                        </div>
-                      </div>  
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Name</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Default Input">
+                          <input type="text" name="fname" class="form-control" placeholder="First Name">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Currency </label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Last Name </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Disabled Input">
+                          <input type="text" name="lname" class="form-control" placeholder="Last Name ">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Price</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Date of Birth</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Read-Only Input">
+                          <input type="text" name="dob" class="form-control" placeholder="Date of Birth">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="email" class="form-control" placeholder="Email">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Phone Number</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="phone_number" class="form-control" placeholder="Phone Number">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">County</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="county" class="form-control" placeholder="County">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Neighbourhood</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="neighbourhood" class="form-control" placeholder="Neighbourhood">
                         </div>
                       </div>
                       

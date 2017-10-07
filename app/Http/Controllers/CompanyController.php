@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Company;
+
 class CompanyController extends Controller
 {
     /**
@@ -14,7 +16,8 @@ class CompanyController extends Controller
     public function index()
     {
         //
-        return view('company.index');
+        $companies = Company::all();
+        return view('company.index', ['companies'=>$companies]);
     }
 
     /**
@@ -38,6 +41,13 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         //
+        $company = new Company;
+        $company->name = $request->name;
+        $company->industry = $request->industry;
+        $company->address = $request->address;
+        $company->save();
+
+        return $this->index();
     }
 
     /**

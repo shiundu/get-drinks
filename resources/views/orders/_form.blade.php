@@ -36,36 +36,33 @@
                   </div>
                   <div class="x_content">
                     <br />
-                    <form class="form-horizontal form-label-left">
+                    <form method="POST" action="/orders" class="form-horizontal form-label-left">
+                      {{ csrf_field() }}
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Company</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <select class="form-control">
-                          @foreach ($companies as $company)
-    
-                            <option value="<?php echo $company->id; ?>">{$company->name}</option>
-                        @endforeach
+                          <select name="customer_id" class="form-control">
+                            <option >Select Customer</option>
+                          @foreach($customers as $customer)
+                            <option value="<?php echo $customer->id; ?>"><?php echo $customer->fname.' '.$customer->lname; ?></option>
+                          @endforeach
                           </select>
                         </div>
-                      </div>  
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Name</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Default Input">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Currency </label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Disabled Input">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Price</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" class="form-control" placeholder="Read-Only Input">
-                        </div>
-                      </div>
+                      </div> 
+
+                      @foreach($products as $product)
+                            <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12"><?php echo $product->name; ?></label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" 
+                                        name="products[<?php echo $product->id; ?>]"
+                                        class="form-control" 
+                                        placeholder="Quantity">
+                              </div>
+                            </div>
+                      @endforeach
+                      
+                      
                       
 
                       <div class="ln_solid"></div>
