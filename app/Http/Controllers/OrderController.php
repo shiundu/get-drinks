@@ -48,7 +48,6 @@ class OrderController extends Controller
 
             // DB::table('posts')->delete();
             $order = new Order;
-            $product->name = $request->name;
 
             $order->customer_id = $request->customer_id;
             $order->user_id = $request->user_id;
