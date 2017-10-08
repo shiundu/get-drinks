@@ -60,7 +60,7 @@ class OrderController extends Controller
                 foreach ($request->products as $key => $value) {
                     if(count($value)> 0)
                     {
-                        $order_items = new 
+                        $order_items = new Order_items;
                         $order_items->order_id = $order_id;
                         $order_items->customer_id = $request->customer_id;
                         $order_items->user_id = $request->customer_id;
