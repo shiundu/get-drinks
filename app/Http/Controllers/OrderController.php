@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Customer;
+use App\Order;
+use App\Order_items;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -40,14 +43,45 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        echo $request->customer_id;
-        //print_r($request->products);
-        foreach ($request->products as $key => $value) {
-            if(count($value)> 0)
-            {
-                echo $key.': '.$value .'</br>';
+        DB::transaction(function () {
+            // DB::table('users')->update(['votes' => 1]);
+
+            // DB::table('posts')->delete();
+            $order = new Order;
+            $product->name = $request->name;
+
+            $order->customer_id = $request->customer_id;
+            $order->user_id = $request->user_id;
+            $order->total = $request->total;
+            $order->drop_off = $request->drop_off;
+
+            ($order->save()){
+                $order_id = $order->id;
+                foreach ($request->products as $key => $value) {
+                    if(count($value)> 0)
+                    {
+                        $order_items = new 
+                        $order_items->order_id = $order_id;
+                        $order_items->customer_id = $request->customer_id;
+                        $order_items->user_id = $request->customer_id;
+                        $order_items->$key = $request->$value;
+                        $order_items->quantity = $request->quantity;
+                    }
+                }
             }
-        }
+
+        }, 5);
+
+
+        // echo $request->customer_id;
+        // //print_r($request->products);
+        // foreach ($request->products as $key => $value) {
+        //     if(count($value)> 0)
+        //     {
+        //         echo $key.': '.$value .'</br>';
+        //     }
+        // }
+        return $this->index();
     }
 
     /**
