@@ -17,8 +17,8 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        return view('orders.index');
+    {   $orders = Order::all();
+        return view('orders.index', ['orders'=>$orders]);
         //
     }
 
@@ -43,39 +43,52 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        DB::transaction(function ($request) {
+
+        // DB::transaction(function ($request) {
+            $products = 0;
+            $total = 0;
+            foreach ($request->products as $key => $product) {
+                foreach ($product as $price => $prod) {
+                    if(count($prod)> 0)
+                    {
+                       $products = $products+1;
+                       $total = $total + ($price*$prod) ;
+                       // print('product id  : '.$key.', Price : '.$price .', quantity : '. $prod.', Total : '.$total.', count :'.$products);
+                    }
+                    
+                }
+
+            }
+
             $order = new Order;
             $order->customer_id = $request->customer_id;
             $order->user_id = $request->user_id;
-            $order->total = $request->total;
+            $order->products = $products;
+            $order->total = $total;
             $order->drop_off = $request->drop_off;
 
             if($order->save()){
                 $order_id = $order->id;
-                foreach ($request->products as $key => $value) {
-                    if(count($value)> 0)
-                    {
-                        $order_items = new Order_items;
-                        $order_items->order_id = $order_id;
-                        $order_items->customer_id = $request->customer_id;
-                        $order_items->user_id = $request->customer_id;
-                        $order_items->$key = $request->$value;
-                        $order_items->quantity = $request->quantity;
+                foreach ($request->products as $key => $product) {
+
+                    foreach ($product as $price => $qtty) {
+                        if(count($qtty)> 0)
+                        {
+                            $order_items = new Order_items;
+                            $order_items->order_id = $order_id;
+                            $order_items->customer_id = $request->customer_id;
+                            $order_items->user_id = $request->customer_id;
+                            $order_items->product_id = $key;
+                            $order_items->quantity = $qtty;
+                            $order_items->save();
+                        }
+                    
                     }
                 }
             }
 
-        }, 5);
+        // });
 
-
-        // echo $request->customer_id;
-        // //print_r($request->products);
-        // foreach ($request->products as $key => $value) {
-        //     if(count($value)> 0)
-        //     {
-        //         echo $key.': '.$value .'</br>';
-        //     }
-        // }
         return $this->index();
     }
 

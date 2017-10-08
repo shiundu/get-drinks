@@ -48,14 +48,21 @@
                           @endforeach
                           </select>
                         </div>
-                      </div> 
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Drop off location <span class="required">*</span>
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <textarea name="drop_off" class="form-control" rows="3" ></textarea>
+                        </div>
+                      </div>
 
                       @foreach($products as $product)
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12"><?php echo $product->name; ?></label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
                                 <input type="text" 
-                                        name="products[<?php echo $product->id; ?>]"
+                                        name="products[<?php echo $product->id; ?>][<?php echo $product->price; ?>]"
                                         class="form-control" 
                                         placeholder="Quantity">
                               </div>
