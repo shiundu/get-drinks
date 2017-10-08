@@ -43,12 +43,8 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        DB::transaction(function () {
-            // DB::table('users')->update(['votes' => 1]);
-
-            // DB::table('posts')->delete();
+        DB::transaction(function ($request) {
             $order = new Order;
-
             $order->customer_id = $request->customer_id;
             $order->user_id = $request->user_id;
             $order->total = $request->total;
