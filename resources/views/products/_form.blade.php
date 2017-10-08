@@ -48,29 +48,35 @@
                           @endforeach
                           </select>
                         </div>
-                      </div>  
+                      </div> 
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Category</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <input type="text" name="cat_id" class="form-control" placeholder="">
+                        </div>
+                      </div> 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Name</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" name="name" class="form-control" placeholder="Default Input">
+                          <input type="text" name="name" class="form-control" placeholder="">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Currency </label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" name="currency" class="form-control" placeholder="Disabled Input">
+                          <input type="text" name="currency" class="form-control" placeholder="">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Price</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" name="price" class="form-control" placeholder="Read-Only Input">
+                          <input type="text" name="price" class="form-control" placeholder="">
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Description</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                          <input type="text" name="description" class="form-control" placeholder="Read-Only Input">
+                          <input type="text" name="description" class="form-control" placeholder="">
                         </div>
                       </div>
                       

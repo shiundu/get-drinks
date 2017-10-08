@@ -46,6 +46,7 @@ class ProductController extends Controller
         $product->price = $request->price;
         $product->currency = $request->currency;
         $product->company_id = $request->company_id;
+        $product->category_id = $request->cat_id;
         $product->description = $request->description;
         $product->save();
 
