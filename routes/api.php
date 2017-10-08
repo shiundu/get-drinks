@@ -23,7 +23,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['prefix' => 'v1'], function () {
 
    Route::get('/product_image/{id}', function (Request $request) {
-    	return public_path('images/products/'.$request->id.'.jpg');
+    	//return public_path('images/products/'.$request->id.'.png');
+
+	   	$path = public_path() . '/images/products/'.$request->id.'.png';
+	    
+	    if(!File::exists($path)) {
+	        return response()->json(['message' => 'Image not found.'], 404);
+	    }
+
+	    $file = File::get($path);
+	    $type = File::mimeType($path);
+
+	    $response = Response::make($file, 200);
+	    $response->header("Content-Type", $type);
+
+	    return $response;
+
+	    return response()->file($path);
 	});
 
    Route::get('/products', 'api\ApiProductController@index');
