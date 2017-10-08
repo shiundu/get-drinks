@@ -55,7 +55,7 @@ class OrderController extends Controller
             $order->total = $request->total;
             $order->drop_off = $request->drop_off;
 
-            ($order->save()){
+            if($order->save()){
                 $order_id = $order->id;
                 foreach ($request->products as $key => $value) {
                     if(count($value)> 0)
