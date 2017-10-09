@@ -45,5 +45,5 @@ Route::group(['prefix' => 'v1'], function () {
    Route::get('/products', 'api\ApiProductController@index');
 
 
-   Route::resource('/order', 'api\ApiProductController');
+   Route::resource('/order', 'api\ApiOrderController');
 });
