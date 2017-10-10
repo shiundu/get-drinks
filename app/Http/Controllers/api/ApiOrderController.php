@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Company;
+use App\Customer;
 
 
 class ApiOrderController extends Controller
@@ -50,12 +51,25 @@ class ApiOrderController extends Controller
         // if($request->customer['phone_number'] && $request->customer['drop_off']){
         //     return ' customer = '.$request->customer.' products = '.$request->products;;
         // }
-        if(is_array($request->customer)){
-           return $request->customer['phone_number']; 
-        }
-        else {
-            return $request->customer;
-        }
+        // id | fname |  lname  | dob  |        email         | phone_number | county  | neighbourhood |
+
+        $user = Customer::where('phone_number', customer['phone_number'])->first();
+
+        return $user;
+        // if($user){
+
+        // }
+        // else {
+        //     $user = Customer::where('phone_number', customer['email'])->first();
+        // }
+
+
+        // if(is_array($request->customer)){
+        //    return $request->customer['phone_number']; 
+        // }
+        // else {
+        //     return $request->customer;
+        // }
         
     }
 
