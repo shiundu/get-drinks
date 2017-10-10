@@ -50,8 +50,13 @@ class ApiOrderController extends Controller
         // if($request->customer['phone_number'] && $request->customer['drop_off']){
         //     return ' customer = '.$request->customer.' products = '.$request->products;;
         // }
-
-        return $request->customer;
+        if(is_array($request->customer)){
+           return $request->customer['phone_number']; 
+        }
+        else {
+            return $request->customer;
+        }
+        
     }
 
     /**
