@@ -52,6 +52,7 @@ class ApiOrderController extends Controller
                 {
                    $products = $products+1;
                    $total = $total + ((int)$price*(int)$prod) ;
+                   return 'Price : '.$price.' quantity : ' .$prod;
                 }
                 
             }
