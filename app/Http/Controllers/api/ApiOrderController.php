@@ -44,18 +44,6 @@ class ApiOrderController extends Controller
      */
     public function store(Request $request)
     {
-        // $product = new Product;
-        // $product->name = $request->name;
-        // $product->price = $request->price;
-        // $product->currency = $request->currency;
-        // $product->company_id = $request->company_id;
-        // $product->description = $request->description;
-        // $product->save();
-        // if($request->customer['phone_number'] && $request->customer['drop_off']){
-        //     return ' customer = '.$request->customer.' products = '.$request->products;;
-        // }
-        // id | fname |  lname  | dob  |        email         | phone_number | county  | neighbourhood |
-        return $request;
         $products = 0;
         $total = 0;
         foreach ($request->products as $key => $product) {
@@ -72,7 +60,6 @@ class ApiOrderController extends Controller
 
         $customer = Customer::where('phone_number', $request->customer['phone_number'])->first();
         if($customer){
-            // customer_id | user_id | total | lat | lon | drop_off | products | status 
             $order = new Order;
             $order->customer_id = $customer->id;
             $order->user_id = $customer->id;
