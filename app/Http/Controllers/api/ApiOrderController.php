@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\Company;
 use App\Customer;
+use App\Order;
+use App\Order_items;
+use Illuminate\Support\Facades\DB;
 
 
 class ApiOrderController extends Controller
@@ -52,24 +55,52 @@ class ApiOrderController extends Controller
         //     return ' customer = '.$request->customer.' products = '.$request->products;;
         // }
         // id | fname |  lname  | dob  |        email         | phone_number | county  | neighbourhood |
+        $products = 0;
+        $total = 0;
+        foreach ($request->products as $key => $product) {
+            foreach ($product as $price => $prod) {
+                if(count($prod)> 0)
+                {
+                   $products = $products+1;
+                   $total = $total + ($price*$prod) ;
+                }
+                
+            }
 
-        $user = Customer::where('phone_number', $request->customer['phone_number'])->first();
+        }
 
-        return $user;
-        // if($user){
+        $customer = Customer::where('phone_number', $request->customer['phone_number'])->first();
+        if($user){
+            // customer_id | user_id | total | lat | lon | drop_off | products | status 
+            $order = new Order;
+            $order->customer_id = $customer->customer_id;
+            $order->user_id = $request->user_id;
+            $order->products = $products;
+            $order->total = $total;
+            $order->drop_off = $request->drop_off;
 
-        // }
-        // else {
-        //     $user = Customer::where('phone_number', customer['email'])->first();
-        // }
+            if($order->save()){
+                $order_id = $order->id;
+                foreach ($request->products as $key => $product) {
 
+                    foreach ($product as $price => $qtty) {
+                        if(count($qtty)> 0)
+                        {
+                            $order_items = new Order_items;
+                            $order_items->order_id = $order_id;
+                            $order_items->customer_id = $request->customer_id;
+                            $order_items->user_id = $request->customer_id;
+                            $order_items->product_id = $key;
+                            $order_items->quantity = $qtty;
+                            $order_items->save();
+                        }
+                    
+                    }
+                }
+            }
+        }
 
-        // if(is_array($request->customer)){
-        //    return $request->customer['phone_number']; 
-        // }
-        // else {
-        //     return $request->customer;
-        // }
+        return Order::findOrFail($order_id);
         
     }
 
