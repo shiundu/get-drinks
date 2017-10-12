@@ -53,7 +53,7 @@ class ApiOrderController extends Controller
         // }
         // id | fname |  lname  | dob  |        email         | phone_number | county  | neighbourhood |
 
-        $user = Customer::where('phone_number', customer['phone_number'])->first();
+        $user = Customer::where('phone_number', $request->customer['phone_number'])->first();
 
         return $user;
         // if($user){
