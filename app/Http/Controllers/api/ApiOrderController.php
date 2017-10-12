@@ -47,16 +47,16 @@ class ApiOrderController extends Controller
         $products = 0;
         $total = 0;
         foreach ($request->products as $key => $product) {
-            foreach ($product as $price => $prod) {
-                if(count($prod)> 0)
+            // foreach ($product as $price => $prod) {
+                if(count((int)$product['quantity'])> 0)
                 {
                    $products = $products+1;
-                   $total = $total + ((int)$price*(int)$prod) ;
+                   $total = $total + ((int)$product['price']*(int)$product['quantity']) ;
                    // return 'Price : '.$price.' quantity : ' .$prod;
-                   return $product;
+                   return $total;
                 }
                 
-            }
+            // }
 
         }
 
