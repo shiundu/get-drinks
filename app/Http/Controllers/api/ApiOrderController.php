@@ -55,6 +55,7 @@ class ApiOrderController extends Controller
         //     return ' customer = '.$request->customer.' products = '.$request->products;;
         // }
         // id | fname |  lname  | dob  |        email         | phone_number | county  | neighbourhood |
+        return $request;
         $products = 0;
         $total = 0;
         foreach ($request->products as $key => $product) {
