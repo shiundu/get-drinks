@@ -78,7 +78,7 @@ class ApiOrderController extends Controller
             $order->user_id = $customer->id;
             $order->products = $products;
             $order->total = $total;
-            $order->drop_off = $request->drop_off;
+            $order->drop_off = $request->customer['drop_off'];
 
             if($order->save()){
                 $order_id = $order->id;
