@@ -73,8 +73,8 @@ class ApiOrderController extends Controller
         if($customer){
             // customer_id | user_id | total | lat | lon | drop_off | products | status 
             $order = new Order;
-            $order->customer_id = $customer->customer_id;
-            $order->user_id = $request->user_id;
+            $order->customer_id = $customer->id;
+            $order->user_id = $customer->id;
             $order->products = $products;
             $order->total = $total;
             $order->drop_off = $request->drop_off;
