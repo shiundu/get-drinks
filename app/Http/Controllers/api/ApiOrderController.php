@@ -51,7 +51,7 @@ class ApiOrderController extends Controller
                 if(count($prod)> 0)
                 {
                    $products = $products+1;
-                   $total = $total + ((float)$price*(int)$prod) ;
+                   $total = $total + ((int)$price*(int)$prod) ;
                 }
                 
             }
