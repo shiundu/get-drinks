@@ -84,7 +84,7 @@ class ApiOrderController extends Controller
             }
         }
 
-        return Order::findOrFail($order_id);
+        return Customer::where('customer_id', $customer->id, 'status', 1)->first();
         
     }
 
