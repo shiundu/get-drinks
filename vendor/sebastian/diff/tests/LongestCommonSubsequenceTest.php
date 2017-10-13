@@ -35,7 +35,7 @@ abstract class LongestCommonSubsequenceTest extends TestCase
     protected function setUp()
     {
         $this->memoryLimit = \ini_get('memory_limit');
-        \ini_set('memory_limit', '256M');
+        \ini_set('memory_limit', '500M');
 
         $this->implementation = $this->createImplementation();
     }
