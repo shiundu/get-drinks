@@ -61,6 +61,7 @@ class ApiOrderController extends Controller
             $order->user_id = $customer->id;
             $order->products = $products;
             $order->total = $total;
+            $order->status = 1;
             $order->drop_off = $request->customer['drop_off'];
 
             if($order->save()){
@@ -97,7 +98,7 @@ class ApiOrderController extends Controller
         foreach($orders as $order){
 
             $products = DB::table('order_items')
-                        ->join('products', 'products.id::varchar', '=', 'order_items.product_id')
+                        ->join('products', 'products.id::int4', '=', 'order_items.product_id::text')
                         ->select('order_items.order_id', 'order_items.customer_id', 'order_items.product_id', 'order_items.quantity', 'products.name', 'products.price', 'products.currency')
                         ->get();
 
