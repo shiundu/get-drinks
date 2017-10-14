@@ -91,7 +91,7 @@ class ApiOrderController extends Controller
 
         $products = [];
         foreach($orders as $order){
-            $products = DB::table('order_items')
+            $prod = DB::table('order_items')
                         ->join('products', 'products.id', '=', 'order_items.product_id')
                         ->select('order_items.order_id', 'order_items.customer_id', 'order_items.product_id', 
                             'order_items.quantity', 'products.name', 'products.price', 'products.currency')
@@ -100,7 +100,7 @@ class ApiOrderController extends Controller
 
             // $d = array($order , 'products' => $products);
             // array_push($all_orders, $d);
-            // array_push($all_orders, 'products' => $products );
+            array_push($products, $prod );
         }
 
         return $products;         
