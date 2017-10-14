@@ -68,10 +68,10 @@ class ApiOrderController extends Controller
                 $order_id = $order->id;
                 foreach ($request->products as $key => $product) {
 
-                    foreach ($product as $price => $qtty) {
-                        if(count($qtty)> 0)
+                    foreach ($product as $key => $value) {
+                        if($key == 'quantity' && count($value) > 0)
                         {
-                            return $product;
+                            return $key.' '.$value;
                             $order_items = new Order_items;
                             $order_items->order_id = $order_id;
                             $order_items->customer_id = $customer->id;
