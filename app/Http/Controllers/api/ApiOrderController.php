@@ -89,7 +89,7 @@ class ApiOrderController extends Controller
                  ->first();
         $all_orders  = [];
         array_push($all_orders, $orders);
-        
+
         $prod = DB::table('order_items')
                 ->join('products', 'products.id', '=', 'order_items.product_id')
                 ->select('order_items.order_id', 'order_items.customer_id', 'order_items.product_id', 
@@ -97,7 +97,7 @@ class ApiOrderController extends Controller
                 ->where('order_id', $orders->id)
                 ->get();
 
-        $products = array("products"=> $prod)     
+        $products = array("products"=> $prod);     
         array_push($all_orders, $products);  
         return $all_orders;      
     }
