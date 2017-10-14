@@ -97,7 +97,7 @@ class ApiOrderController extends Controller
                 ->join('products', 'products.id', '=', 'order_items.product_id')
                 ->select('order_items.order_id', 'order_items.customer_id', 'order_items.product_id', 
                     'order_items.quantity', 'products.name', 'products.price', 'products.currency')
-                ->where('order_id', $order->id)
+                ->where('order_id', $orders->id)
                 ->get();
 
             // array_push($products, $prod );
