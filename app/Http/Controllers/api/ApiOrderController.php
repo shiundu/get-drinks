@@ -89,6 +89,8 @@ class ApiOrderController extends Controller
                  ->get();
         $all_orders  = [];
 
+        array_push($all_orders, $orders );
+
         $products = [];
         foreach($orders as $order){
             $prod = DB::table('order_items')
@@ -102,8 +104,8 @@ class ApiOrderController extends Controller
             // array_push($all_orders, $d);
             array_push($products, $prod );
         }
-
-        return $orders;         
+        array_push($all_orders, $products);
+        return $all_orders;         
     }
 
 
