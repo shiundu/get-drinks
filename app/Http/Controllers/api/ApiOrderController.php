@@ -89,6 +89,7 @@ class ApiOrderController extends Controller
                  ->get();
         $all_orders  = [];
 
+        $products = [];
         foreach($orders as $order){
             $products = DB::table('order_items')
                         ->join('products', 'products.id', '=', 'order_items.product_id')
