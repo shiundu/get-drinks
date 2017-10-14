@@ -46,4 +46,6 @@ Route::group(['prefix' => 'v1'], function () {
 
 
    Route::resource('/order', 'api\ApiOrderController');
+   Route::get('/pending_orders/{phone_number}', 'api\ApiOrderController@pending_orders');
+
 });
