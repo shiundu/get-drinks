@@ -87,8 +87,8 @@ class ApiOrderController extends Controller
         $orders = Order::where('customer_id', $customer->id)
                  ->where('status', 1)
                  ->first();
-        // $all_orders  = [];
-        // array_push($all_orders, $orders);
+        $all_orders  = [];
+        array_push($all_orders, $orders);
 
         $prod = DB::table('order_items')
                 ->join('products', 'products.id', '=', 'order_items.product_id')
@@ -98,9 +98,8 @@ class ApiOrderController extends Controller
                 ->get();
 
         $products = array("products"=> $prod);     
-        // array_push($all_orders, $products);  
-        // return $all_orders;
-        return response()->json($orders, $products);      
+        array_push($all_orders, $products);  
+        return $all_orders;    
     }
 
 
