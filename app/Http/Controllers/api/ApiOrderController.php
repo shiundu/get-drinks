@@ -103,7 +103,7 @@ class ApiOrderController extends Controller
             array_push($products, $prod );
         }
 
-        return $products;         
+        return $orders;         
     }
 
 
