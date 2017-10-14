@@ -71,13 +71,13 @@ class ApiOrderController extends Controller
                     foreach ($product as $key => $value) {
                         if($key == 'quantity' && count($value) > 0)
                         {
-                            return $key.' '.$value;
+                            // return $key.' '.$value;
                             $order_items = new Order_items;
                             $order_items->order_id = $order_id;
                             $order_items->customer_id = $customer->id;
                             $order_items->user_id = $customer->id;
-                            $order_items->product_id = $key;
-                            $order_items->quantity = $qtty;
+                            $order_items->product_id = $product['product_id'];
+                            $order_items->quantity = $product['quantity'];
                             $order_items->save();
                         }
                     
