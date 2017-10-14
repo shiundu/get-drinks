@@ -100,7 +100,7 @@ class ApiOrderController extends Controller
         $products = array("products"=> $prod);     
         // array_push($all_orders, $products);  
         // return $all_orders;
-        return response()->json($order, $products);      
+        return response()->json($orders, $products);      
     }
 
 
