@@ -87,9 +87,9 @@ class ApiOrderController extends Controller
         $orders = Order::where('customer_id', $customer->id)
                  ->where('status', 1)
                  ->get();
-        $all_orders  = [];
+        // $all_orders  = [];
 
-        array_push($all_orders, $orders );
+        // array_push($all_orders, $orders );
 
         $products = [];
         foreach($orders as $order){
@@ -100,12 +100,9 @@ class ApiOrderController extends Controller
                         ->where('order_id', $order['order_id'])
                         ->get();
 
-            // $d = array($order , 'products' => $products);
-            // array_push($all_orders, $d);
             array_push($products, $prod );
         }
-        array_push($all_orders, $products);
-        return $all_orders;         
+        return $orders;         
     }
 
 
