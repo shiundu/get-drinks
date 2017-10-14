@@ -87,22 +87,22 @@ class ApiOrderController extends Controller
         }
 
         
-        // $all_orders  = [];
-        // $orders = Order::where('customer_id', $customer->id)
-        //          ->where('status', 1)->get();
+        $all_orders  = [];
+        $orders = Order::where('customer_id', $customer->id)
+                 ->where('status', 1)->get();
 
         
-        // foreach($orders as $order){
+        foreach($orders as $order){
 
-        //     $products = DB::table('order_items')
-        //                 ->join('products', 'products.id', '=', 'order_items.product_id')
-        //                 ->select('order_items.order_id', 'order_items.customer_id', 'order_items.product_id', 'order_items.quantity', 'products.name', 'products.price', 'products.currency')
-        //                 ->get();
+            $products = DB::table('order_items')
+                        ->join('products', 'products.id', '=', 'order_items.product_id')
+                        ->select('order_items.order_id', 'order_items.customer_id', 'order_items.product_id', 'order_items.quantity', 'products.name', 'products.price', 'products.currency')
+                        ->get();
 
-        //     $d = array($all_orders , 'products' => $products);
-        //     array_push($all_orders, $d);
-        // }
-        // return $all_orders;
+            $d = array($all_orders , 'products' => $products);
+            array_push($all_orders, $d);
+        }
+        return $all_orders;
         
     }
 
