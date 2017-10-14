@@ -97,9 +97,13 @@ class ApiOrderController extends Controller
                 ->where('order_id', $orders->id)
                 ->get();
 
-        $products = array("products"=> $prod);     
-        array_push($all_orders, $products);  
-        return $all_orders;    
+        $products = array("products"=> $prod);  
+
+        // array_push($all_orders, $products);  
+        // return $all_orders;    
+
+
+        return array_merge($all_orders, $products); 
     }
 
 
