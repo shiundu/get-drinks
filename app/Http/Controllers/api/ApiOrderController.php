@@ -86,7 +86,7 @@ class ApiOrderController extends Controller
         $customer = Customer::where('phone_number', $phone_number)->first();
         $orders = Order::where('customer_id', $customer->id)
                  ->where('status', 1)
-                 ->first();
+                 ->get();
         $all_orders  = [];
         array_push($all_orders, $orders);
 
@@ -102,8 +102,9 @@ class ApiOrderController extends Controller
         // array_push($all_orders, $products);  
         // return $all_orders;    
 
-
-        return array_merge($orders, $products); 
+        array_push($orders, $products); 
+        // return array_merge($orders, $products); 
+        return $orders;
     }
 
 
