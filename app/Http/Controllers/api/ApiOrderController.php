@@ -102,9 +102,9 @@ class ApiOrderController extends Controller
         // array_push($all_orders, $products);  
         // return $all_orders;    
 
-        array_push($orders, $products); 
+        // array_push($orders, $products); 
         // return array_merge($orders, $products); 
-        return $orders;
+        return $orders[0]['id'];
     }
 
 
