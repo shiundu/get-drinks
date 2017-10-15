@@ -58,7 +58,6 @@ class ApiOrderController extends Controller
         }
 
         
-        $all_orders  = [];
         $orders = Order::where('customer_id', $customer->id)
                  ->where('status', 1)
                  ->get();
