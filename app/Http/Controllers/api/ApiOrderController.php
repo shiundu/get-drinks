@@ -26,7 +26,7 @@ class ApiOrderController extends Controller
             }
         }
 
-        $customer = Customer::where('phone_number', $request->customer->phone_number)->first();
+        $customer = Customer::where('phone_number', $request->customer['phone_number'])->first();
         // if($customer){
         //     $order = new Order;
         //     $order->customer_id = $customer->id;
@@ -78,7 +78,7 @@ class ApiOrderController extends Controller
         
         // return $all_orders;
 
-        return $request->customer;
+        return $request->customer['phone_number'];
         
     }
 
