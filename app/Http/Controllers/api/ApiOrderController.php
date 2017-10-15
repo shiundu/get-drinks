@@ -30,7 +30,7 @@ class ApiOrderController extends Controller
         $customer = DB::table('customers')
                     ->where('phone_number', $request->customer['phone_number'])
                     ->orWhere('email', $request->customer['email'])
-                    ->first();
+                    ->get();
 
         // if($customer){
         //     $order = new Order;
