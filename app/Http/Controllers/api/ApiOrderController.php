@@ -26,7 +26,12 @@ class ApiOrderController extends Controller
             }
         }
 
-        $customer = Customer::where('phone_number', $request->customer['phone_number'])->first();
+        // $customer = Customer::where('phone_number', $request->customer['phone_number'])->first();
+        $customer = DB::table('customers')
+                    ->where('phone_number', $request->customer['phone_number'])
+                    ->orWhere('email', $request->customer['email'])
+                    ->get();
+
         if($customer){
             $order = new Order;
             $order->customer_id = $customer->id;
