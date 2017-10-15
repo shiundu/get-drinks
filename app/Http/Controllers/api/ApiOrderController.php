@@ -78,7 +78,7 @@ class ApiOrderController extends Controller
         
         // return $all_orders;
 
-        return $request->customer['phone_number'];
+        return $customer;
         
     }
 
