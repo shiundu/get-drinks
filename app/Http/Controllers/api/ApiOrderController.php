@@ -50,8 +50,8 @@ class ApiOrderController extends Controller
                         {
                             $order_items = new Order_items;
                             $order_items->order_id = $order_id;
-                            $order_items->customer_id = $customer[0]->id
-                            $order_items->user_id = $customer[0]->id
+                            $order_items->customer_id = $customer[0]->id;
+                            $order_items->user_id = $customer[0]->id;
                             $order_items->product_id = $product['product_id'];
                             $order_items->quantity = $product['quantity'];
                             $order_items->save();
