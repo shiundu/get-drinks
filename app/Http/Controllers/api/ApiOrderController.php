@@ -34,8 +34,8 @@ class ApiOrderController extends Controller
 
         if($customer){
             $order = new Order;
-            $order->customer_id = $customer[0]['id'];
-            $order->user_id = $customer[0]['id'];
+            $order->customer_id = $customer[0]->id;
+            $order->user_id = $customer[0]->id;
             $order->products = $products;
             $order->total = $total;
             $order->status = 1;
@@ -50,8 +50,8 @@ class ApiOrderController extends Controller
                         {
                             $order_items = new Order_items;
                             $order_items->order_id = $order_id;
-                            $order_items->customer_id = $customer[0]['id'];
-                            $order_items->user_id = $customer[0]['id'];
+                            $order_items->customer_id = $customer[0]->id
+                            $order_items->user_id = $customer[0]->id
                             $order_items->product_id = $product['product_id'];
                             $order_items->quantity = $product['quantity'];
                             $order_items->save();
@@ -63,7 +63,7 @@ class ApiOrderController extends Controller
         }
 
         
-        $orders = Order::where('customer_id', $customer[0]['id'])
+        $orders = Order::where('customer_id', $customer[0]->id)
                  ->where('status', 1)
                  ->get();
         $all_orders  = [];
@@ -111,7 +111,7 @@ class ApiOrderController extends Controller
         
         // return $all_orders;
 
-        return $customer;
+        return $customer[0]->id;
     }
 
 
