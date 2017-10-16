@@ -67,7 +67,7 @@ class ApiOrderController extends Controller
                  ->where('status', 1)
                  ->get();
         $all_orders  = [];
-        array_push($all_orders, $orders);
+        array_push($all_orders, $orders[0]);
 
         $prod = DB::table('order_items')
                 ->join('products', 'products.id', '=', 'order_items.product_id')
@@ -95,7 +95,7 @@ class ApiOrderController extends Controller
                  ->where('status', 1)
                  ->get();
         $all_orders  = [];
-        array_push($all_orders, $orders);
+        array_push($all_orders, $orders[0]);
         if(count($orders) > 0){
             $prod = DB::table('order_items')
                 ->join('products', 'products.id', '=', 'order_items.product_id')
