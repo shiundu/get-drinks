@@ -31,8 +31,31 @@ class ApiOrderController extends Controller
                     ->where('phone_number', $request->customer['phone_number'])
                     ->orWhere('email', $request->customer['email'])
                     ->get();
+        $orders = Order::where('customer_id', $customer[0]->id)
+                 ->where('status', 1)
+                 ->get();            
+        if(count($orders) > 0){
 
-        if($customer){
+            foreach ($product as $key => $value) {
+                if($key == 'quantity' && count($value) > 0)
+                        {
+                            DB::table('order_items')
+                                ->where('order_id', $orders[0]['id']) 
+                                ->update(['votes' => 1]);
+
+                            $order_items = new Order_items;
+                            $order_items->order_id = $order_id;
+                            $order_items->customer_id = $customer[0]->id;
+                            $order_items->user_id = $customer[0]->id;
+                            $order_items->product_id = $product['product_id'];
+                            $order_items->quantity = $product['quantity'];
+                            $order_items->save();
+                        }
+                
+            }
+            
+        }
+        elseif($customer){
             $order = new Order;
             $order->customer_id = $customer[0]->id;
             $order->user_id = $customer[0]->id;
@@ -73,7 +96,7 @@ class ApiOrderController extends Controller
                 ->join('products', 'products.id', '=', 'order_items.product_id')
                 ->select('order_items.order_id', 'order_items.customer_id', 'order_items.product_id', 
                     'order_items.quantity', 'products.name', 'products.price', 'products.currency')
-                ->where('order_id', $orders[0]['id'])
+                ->where('order_id', $orders[0]->id)
                 ->get();
 
         $products = array("products"=> $prod);  
