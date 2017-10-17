@@ -33,23 +33,36 @@ class ApiOrderController extends Controller
                     ->get();
         $orders = Order::where('customer_id', $customer[0]->id)
                  ->where('status', 1)
-                 ->get();            
+                 ->get();
+
         if(count($orders) > 0){
 
             foreach ($product as $key => $value) {
                 if($key == 'quantity' && count($value) > 0)
                         {
-                            DB::table('order_items')
-                                ->where('order_id', $orders[0]['id']) 
-                                ->update(['votes' => 1]);
+                            // $order_items = DB::table('order_items')
+                            //                 ->where('order_id', $orders[0]->id)
+                            //                 ->get();
 
-                            $order_items = new Order_items;
-                            $order_items->order_id = $order_id;
-                            $order_items->customer_id = $customer[0]->id;
-                            $order_items->user_id = $customer[0]->id;
-                            $order_items->product_id = $product['product_id'];
-                            $order_items->quantity = $product['quantity'];
-                            $order_items->save();
+                            // foreach ($order_items as $key => $value) {
+                            //     if () {
+                            //     # code...
+                            //     } else {
+                            //     }
+                            
+                            // }           
+                            // DB::table('order_items')
+                            //     ->where('order_id', $orders[0]->id)
+                            //     ->where('product_id', $product['product_id'];)  
+                            //     ->update(['quantity' => $product['quantity'] ]);
+
+                            // $order_items = new Order_items;
+                            // $order_items->order_id = $order_id;
+                            // $order_items->customer_id = $customer[0]->id;
+                            // $order_items->user_id = $customer[0]->id;
+                            // $order_items->product_id = $product['product_id'];
+                            // $order_items->quantity = $product['quantity'];
+                            // $order_items->save();
                         }
                 
             }
