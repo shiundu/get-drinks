@@ -149,7 +149,7 @@ class ApiOrderController extends Controller
     public function pending_orders($phone_number)
     {   $all_orders  = [];
         $customer = Customer::where('phone_number', $phone_number)->get();
-        if($customer){
+        if(count($customer) > 0){
           $orders = Order::where('customer_id', $customer[0]->id)
                    ->where('status', 1)
                    ->get();
