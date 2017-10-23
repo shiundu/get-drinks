@@ -27,7 +27,7 @@ class ApiOrderController extends Controller
         }
 
         // $customer = Customer::where('phone_number', $request->customer['phone_number'])->first();
-        if($request->customer['customer_id']){
+        if(isset($request->customer['customer_id'])){
             $customer_id = $request->customer['customer_id'];
         }
         else {
