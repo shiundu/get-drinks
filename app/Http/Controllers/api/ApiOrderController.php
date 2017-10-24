@@ -32,67 +32,94 @@ class ApiOrderController extends Controller
         }
         else {
             $customer = DB::table('customers')
-                    ->where('phone_number', $request->customer['phone_number'])
-                    ->orWhere('email', $request->customer['email'])
+                    ->where('phone_number', isset($request->customer['phone_number']) )
+                    ->orWhere('email', isset($request->customer['email']) )
                     ->get();
+            if($customer){
+              $customer_id = $customer[0]->id;
 
-            $customer_id = $customer[0]->id;
+              $orders = Order::where('customer_id', $customer_id)
+                       ->where('status', 1)
+                       ->get();
+            }
+            else {
+              $customer_id = null;
+            }
+
         }
 
 
 
-        $orders = Order::where('customer_id', $customer_id)
-                 ->where('status', 1)
-                 ->get();
 
         if(count($orders) > 0){
-            $order_items = Order_items::where('customer_id', $customer_id)
-                 ->where('customer_id', $customer_id)
-                 ->where('order_id', $orders[0]->id)
-                 ->get();
-
-            foreach ($order_items as $key => $value) {
-                    foreach ($product as $key => $value) {
-                        if($key == 'quantity' && count($value) > 0){
-                                    // $order_items = DB::table('order_items')
-                                    //                 ->where('order_id', $orders[0]->id)
-                                    //                 ->get();
-
-                                    // foreach ($order_items as $key => $value) {
-                                    //     if () {
-                                    //     # code...
-                                    //     } else {
-
-                                    //     }
-                                    // }
-
-                                    // }
-                                    // DB::table('order_items')
-                                    //     ->where('order_id', $orders[0]->id)
-                                    //     ->where('product_id', $product['product_id'];)
-                                    //     ->update(['quantity' => $product['quantity'] ]);
-
-                                    // $order_items = new Order_items;
-                                    // $order_items->order_id = $order_id;
-                                    // $order_items->customer_id = $customer[0]->id;
-                                    // $order_items->user_id = $customer[0]->id;
-                                    // $order_items->product_id = $product['product_id'];
-                                    // $order_items->quantity = $product['quantity'];
-                                    // $order_items->save();
-                        }
-                        else {
-
-                        }
-
-                    }
+            foreach ($request->products as $key => $product) {
+              $order_items = Order_items::where('customer_id', $customer_id)
+              ->where('product_id', $product->product_id)
+              ->where('order_id', $product->order_id)
+              ->first();
+              if($order_items){
+                Order_items::where('customer_id', $customer_id)
+                ->where('product_id', $product->product_id)
+                ->where('order_id', $product->order_id)
+                ->update(['quantity' => $product->quantity]);
+              }
+              else {
+                if($key == 'quantity' && count($value) > 0)
+                {
+                    $order_items = new Order_items;
+                    $order_items->order_id = $order_id;
+                    $order_items->customer_id = $customer_id;
+                    $order_items->user_id = $customer_id;
+                    $order_items->product_id = $product['product_id'];
+                    $order_items->quantity = $product['quantity'];
+                    $order_items->save();
+                }
+              }
             }
-
-
         }
         elseif($customer){
             $order = new Order;
             $order->customer_id = $customer_id;
             $order->user_id = $customer_id;
+            $order->products = $products;
+            $order->total = $total;
+            $order->status = 1;
+            $order->drop_off = $request->customer['drop_off'];
+
+            if($order->save()){
+                $order_id = $order->id;
+                foreach ($request->products as $key => $product) {
+
+                    foreach ($product as $key => $value) {
+                        if($key == 'quantity' && count($value) > 0)
+                        {
+                            $order_items = new Order_items;
+                            $order_items->order_id = $order_id;
+                            $order_items->customer_id = $customer_id;
+                            $order_items->user_id = $customer_id;
+                            $order_items->product_id = $product['product_id'];
+                            $order_items->quantity = $product['quantity'];
+                            $order_items->save();
+                        }
+
+                    }
+                }
+            }
+        }
+        elseif($customer == null){
+            $customer = new Customer;
+            $customer->fname = $request->customer['fname'];
+            $customer->lname = $request->customer['lname'];
+            $customer->dob = $request->customer['dob'];
+            $customer->email = $request->customer['email'];
+            $customer->phone_number = $request->customer['phone_number'];
+            $customer->county = $request->customer['county'];
+            $customer->neighbourhood = $request->customer['neighbourhood'];
+            $cust = $customer->save();
+
+            $order = new Order;
+            $order->customer_id = $cust->id;
+            $order->user_id = $cust->id;
             $order->products = $products;
             $order->total = $total;
             $order->status = 1;
@@ -141,8 +168,6 @@ class ApiOrderController extends Controller
 
         return $all_orders;
 
-        // return $customer;
-
     }
 
 
@@ -153,22 +178,23 @@ class ApiOrderController extends Controller
           $orders = Order::where('customer_id', $customer[0]->id)
                    ->where('status', 1)
                    ->get();
-           array_push($all_orders, $orders[0]);
-           if(count($orders) > 0){
-               $prod = DB::table('order_items')
-                   ->join('products', 'products.id', '=', 'order_items.product_id')
-                   ->select('order_items.order_id', 'order_items.customer_id', 'order_items.product_id',
-                       'order_items.quantity', 'products.name', 'products.price', 'products.currency')
-                   ->where('order_id', $orders[0]->id)
-                   ->get();
 
-               $products = array("products"=> $prod);
+         if(count($orders) > 0){
+             array_push($all_orders, $orders[0]);
+             $prod = DB::table('order_items')
+                 ->join('products', 'products.id', '=', 'order_items.product_id')
+                 ->select('order_items.order_id', 'order_items.customer_id', 'order_items.product_id',
+                     'order_items.quantity', 'products.name', 'products.price', 'products.currency')
+                 ->where('order_id', $orders[0]->id)
+                 ->get();
 
-               array_merge($all_orders, []);
-               array_push($all_orders, $products);
+             $products = array("products"=> $prod);
 
-               return $all_orders;
-           }
+             array_merge($all_orders, []);
+             array_push($all_orders, $products);
+
+             return $all_orders;
+         }
            return $all_orders;
         }
 
