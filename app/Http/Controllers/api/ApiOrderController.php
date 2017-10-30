@@ -32,12 +32,12 @@ class ApiOrderController extends Controller
         }
         else {
             $customer = DB::table('customers')
-                    ->where('phone_number', isset($request->customer->phone_number) )
-                    ->orWhere('email', isset($request->customer->email) )
+                    ->where('phone_number', isset($request->customer['phone_number']) )
+                    ->orWhere('email', isset($request->customer['email']) )
                     ->get();
             if($customer){
               // $customer_id = $customer[0]->id;
-              return $request->customer->phone_number;
+              return $request->customer['phone_number'];
 
               // $orders = Order::where('customer_id', $customer_id)
               //          ->where('status', 1)
