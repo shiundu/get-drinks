@@ -71,7 +71,7 @@ class ApiOrderController extends Controller
                 ->update(['quantity' => $product['quantity'] ]);
               }
               else {
-                if($key == 'quantity' && count($value) > 0)
+                if($key == 'quantity' && count($product) > 0)
                 {
                     $order_items = new Order_items;
                     $order_items->order_id = $orders[0]->id;
