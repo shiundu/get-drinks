@@ -36,11 +36,12 @@ class ApiOrderController extends Controller
                     ->orWhere('email', isset($request->customer['email']) )
                     ->get();
             if($customer){
-              $customer_id = $customer[0]->id;
+              // $customer_id = $customer[0]->id;
+              return $Customer;
 
-              $orders = Order::where('customer_id', $customer_id)
-                       ->where('status', 1)
-                       ->get();
+              // $orders = Order::where('customer_id', $customer_id)
+              //          ->where('status', 1)
+              //          ->get();
             }
             else {
               $customer_id = null;
