@@ -32,7 +32,7 @@ class ApiOrderController extends Controller
         }
         else {
             $customer = Customer::where('phone_number', isset($request->customer['phone_number']) )
-                    ->orWhere('email', isset($request->customer['email']) )
+                    // ->orWhere('email', isset($request->customer['email']) )
                     ->get();
 
             if($customer){
