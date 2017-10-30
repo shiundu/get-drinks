@@ -69,29 +69,28 @@ class ApiOrderController extends Controller
 
         if(count($orders) > 0){
             foreach ($request->products as $key => $product) {
-              return $product['product_id'];
-              // $order_items = Order_items::where('customer_id', $customer_id)
-              // ->where('product_id', $product->product_id)
-              // ->where('order_id', $product->order_id)
-              // ->first();
-              // if($order_items){
-              //   Order_items::where('customer_id', $customer_id)
-              //   ->where('product_id', $product->product_id)
-              //   ->where('order_id', $product->order_id)
-              //   ->update(['quantity' => $product->quantity]);
-              // }
-              // else {
-              //   if($key == 'quantity' && count($value) > 0)
-              //   {
-              //       $order_items = new Order_items;
-              //       $order_items->order_id = $order_id;
-              //       $order_items->customer_id = $customer_id;
-              //       $order_items->user_id = $customer_id;
-              //       $order_items->product_id = $product['product_id'];
-              //       $order_items->quantity = $product['quantity'];
-              //       $order_items->save();
-              //   }
-              // }
+              $order_items = Order_items::where('customer_id', $customer_id)
+              ->where('product_id', $product['product_id'])
+              ->where('order_id', $orders['order_id'])
+              ->first();
+              if($order_items){
+                Order_items::where('customer_id', $customer_id)
+                ->where('product_id', $product['product_id'])
+                ->where('order_id', $orders['order_id'])
+                ->update(['quantity' => $product['quantity']);
+              }
+              else {
+                if($key == 'quantity' && count($value) > 0)
+                {
+                    $order_items = new Order_items;
+                    $order_items->order_id = $orders['order_id'];
+                    $order_items->customer_id = $customer_id;
+                    $order_items->user_id = $customer_id;
+                    $order_items->product_id = $product['product_id'];
+                    $order_items->quantity = $product['quantity'];
+                    $order_items->save();
+                }
+              }
             }
         }
         // elseif($customer){
