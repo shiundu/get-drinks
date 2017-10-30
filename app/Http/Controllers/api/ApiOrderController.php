@@ -30,7 +30,7 @@ class ApiOrderController extends Controller
         if(isset($request->customer['customer_id'])){
             $customer_id = $request->customer['customer_id'];
         }
-        elseif(isset($request->customer['email']){
+        elseif(isset($request->customer['email'])){
             $customer = Customer::where('email', $request->customer['email'])->get();
 
             if($customer){
