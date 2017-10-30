@@ -69,7 +69,7 @@ class ApiOrderController extends Controller
 
         if(count($orders) > 0){
             foreach ($request->products as $key => $product) {
-              return $product;
+              return $product['product_id'];
               // $order_items = Order_items::where('customer_id', $customer_id)
               // ->where('product_id', $product->product_id)
               // ->where('order_id', $product->order_id)
