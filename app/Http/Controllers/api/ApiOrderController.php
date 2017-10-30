@@ -47,7 +47,7 @@ class ApiOrderController extends Controller
             }
 
         }
-        elseif(isset($request->customer['phone_number']){
+        elseif(isset($request->customer['phone_number'])){
           $customer = Customer::where('phone_number', $request->customer['phone_number'])->get();
 
           if($customer){
