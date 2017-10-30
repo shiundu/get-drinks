@@ -70,7 +70,7 @@ class ApiOrderController extends Controller
                 Order_items::where('customer_id', $customer_id)
                 ->where('product_id', $product['product_id'])
                 ->where('order_id', $orders['order_id'])
-                ->update(['quantity' => $product['quantity']);
+                ->update(['quantity' => $product['quantity'] ]);
               }
               else {
                 if($key == 'quantity' && count($value) > 0)
