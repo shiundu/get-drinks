@@ -37,7 +37,7 @@ class ApiOrderController extends Controller
                     ->get();
             if($customer){
               // $customer_id = $customer[0]->id;
-              return $Customer;
+              return $customer;
 
               // $orders = Order::where('customer_id', $customer_id)
               //          ->where('status', 1)
