@@ -31,9 +31,9 @@ class ApiOrderController extends Controller
             $customer_id = $request->customer['customer_id'];
         }
         else {
-            $customer = Customer::where('phone_number', isset($request->customer['phone_number']) )
+            $customer = Customer::where('phone_number', $request->customer['phone_number'])->get();
                     // ->orWhere('email', isset($request->customer['email']) )
-                    ->get();
+                    // ->get();
 
             if($customer){
               // $customer_id = $customer[0]->id;
