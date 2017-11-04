@@ -68,7 +68,10 @@
                             <td class=" "><?php echo $order->updated_at; ?></td>
                             <td class=" "><?php echo $order->name; ?></td>
                             <td class=" ">
-                              @foreach(items as item)
+                              @foreach($items as $item)
+                                @if($order->order_id == $item->order_id)
+                                  <li><?php echo $item->product_name; ?></li>
+                                @endif
                               @endforeach
                             </td>
                             <td class=" "><?php echo $order->total; ?></td>

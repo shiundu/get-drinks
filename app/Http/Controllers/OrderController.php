@@ -24,20 +24,20 @@ class OrderController extends Controller
         $orders = DB::table('orders')
             ->join('customers', 'customers.id', '=', 'orders.customer_id')
             ->join('order_items', 'order_items.order_id', '=', 'orders.id')
-            ->select('orders.updated_at', DB::raw('CONCAT(customers.fname, customers.lname) as name'), 'orders.products', 'orders.total', 'orders.drop_off')
+            ->select('orders.id','orders.updated_at', DB::raw('CONCAT(customers.fname, customers.lname) as name'), 'orders.products', 'orders.total', 'orders.drop_off')
             ->where('status', 1)
             ->get();
 
         $items = DB::table('order_items')
             ->join('products', 'products.id', '=', 'order_items.product_id')
             ->join('orders', 'orders.id', '=', 'order_items.order_id')
-            ->select('order_items.customer_id', 
+            ->select('order_items.customer_id',
                 DB::raw('order_items.order_id as order_id'),
                 DB::raw('order_items.product_id as product_id'),
                 DB::raw('order_items.quantity as quantity'),
                 DB::raw('products.name as product_name'),
                 DB::raw('products.price as price'),
-                DB::raw('products.currency as quantity'))
+                DB::raw('products.currency as currency'))
             ->where('orders.status', 1)
             ->get();
 
