@@ -180,10 +180,11 @@ class ApiOrderController extends Controller
 
     }
 
-    updateTotal($order_id){
-      $total = 0
+    public function updateTotal($order_id){
+      $total = 0;
       $order_items = Order_items::where('order_id', $order_id)
                ->get();
+               
       foreach ($order_items as $item) {
         $total = $item['quantity']* $item['price'];
       }

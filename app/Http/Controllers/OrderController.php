@@ -132,9 +132,12 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        //
+      Order::where('id', $id)
+       ->update(['status' => $request->status ]);
+
+       return $this->index();
     }
 
     /**

@@ -83,9 +83,18 @@
                             <td class=" ">
                               <div class="row">
                                 <div class="btn-group">
-                                  <button class="btn btn-primary" type="button">Dispatched</button>
-                                  <button class="btn btn-success" type="button">Delivered</button>
-                                  <button class="btn btn-danger" type="button">Delete</button>
+                                  <form action="orders/<?php echo $order->id;?>" method="put">
+                                    <input name='status' value="2" hidden="hidden">
+                                    <button class="btn btn-primary" type="button">Dispatched</button>
+                                  </form >
+                                  <form action="orders/<?php echo $order->id;?>" method="put">
+                                    <input name='status' value="3" hidden="hidden">
+                                    <button class="btn btn-success" type="button">Delivered</button>
+                                  </form >
+                                  <form action="orders/<?php echo $order->id;?>" method="put">
+                                    <input name='status' value="4" hidden="hidden">
+                                    <button class="btn btn-danger" type="button">Delete</button>
+                                  </form >
                                 </div>
                               </div>
                             </td>
