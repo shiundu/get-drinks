@@ -30,9 +30,10 @@ class OrderController extends Controller
 
         $items = DB::table('order_items')
             ->join('products', 'products.id', '=', 'order_items.product_id')
+            ->join('orders', 'orders.id', '=', 'order_items.order_id')
             ->select('order_items.order_id', 'order_items.customer_id', 'order_items.product_id',
                 'order_items.quantity', 'products.name', 'products.price', 'products.currency')
-            ->where('status', 1)
+            ->where('orders.status', 1)
             ->get();
 
         return view('orders.index', ['orders'=>$orders, 'items' => $items]);
