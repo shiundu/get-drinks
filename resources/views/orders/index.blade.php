@@ -61,7 +61,11 @@
 
                         <tbody>
                            @foreach($orders as $order)
-                          <tr class="even pointer">
+                            @if($order->status == 2)
+                              <tr class="even pointer" style=" backgroundColor: 'blue'">
+                            @elseif($order->status == 2)
+                              <tr class="even pointer" style=" backgroundColor: 'green'">
+                            @endif
                             <td class="a-center ">
                               <input type="checkbox" class="flat" name="table_records">
                             </td>
@@ -70,7 +74,7 @@
                             <td class=" ">
                               @foreach($items as $item)
                                 @if($order->id == $item->order_id)
-                                  <li><?php echo $item->product_name .' '.$item->quantity; ?></li>
+                                  <li><?php echo $item->product_name .'  ('.$item->quantity.'*'.$item->price.')'; ?></li>
                                 @endif
                               @endforeach
                             </td>

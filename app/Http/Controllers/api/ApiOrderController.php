@@ -199,7 +199,7 @@ class ApiOrderController extends Controller
         $customer = Customer::where('phone_number', $phone_number)->get();
         if(count($customer) > 0){
           $orders = Order::where('customer_id', $customer[0]->id)
-                   ->where('status', 1)
+                   ->whereIn('status', [1,2,3])
                    ->get();
 
          if(count($orders) > 0){
