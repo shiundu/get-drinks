@@ -70,7 +70,7 @@
                             <td class=" ">
                               @foreach($items as $item)
                                 @if($order->id == $item->order_id)
-                                  <li><?php echo $item->product_name; ?></li>
+                                  <li><?php echo $item->product_name .' '.$item->quantity; ?></li>
                                 @endif
                               @endforeach
                             </td>

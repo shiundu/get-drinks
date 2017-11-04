@@ -26,6 +26,7 @@ class OrderController extends Controller
             ->join('order_items', 'order_items.order_id', '=', 'orders.id')
             ->select('orders.id','orders.updated_at', DB::raw('CONCAT(customers.fname, customers.lname) as name'), 'orders.products', 'orders.total', 'orders.drop_off')
             ->where('status', 1)
+            ->groupBy('orders.id')
             ->get();
 
         $items = DB::table('order_items')
