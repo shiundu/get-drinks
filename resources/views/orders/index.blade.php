@@ -1,7 +1,7 @@
 @extends('layouts.page')
 
 @section('content')
-        
+
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -70,14 +70,22 @@
                             <td class=" "><?php echo $order->products; ?></td>
                             <td class=" "><?php echo $order->total; ?></td>
                             <td class=" "><?php echo $order->drop_off; ?></td>
-                            <td class=" "></td>
+                            <td class=" ">
+                              <div class="row">
+                                <div class="btn-group">
+                                  <button class="btn btn-default" type="button">Left</button>
+                                  <button class="btn btn-default" type="button">Middle</button>
+                                  <button class="btn btn-default" type="button">Right</button>
+                                </div>
+                              </div>
+                            </td>
                           </tr>
                           @endforeach
                         </tbody>
                       </table>
                     </div>
-                            
-                        
+
+
                   </div>
                 </div>
               </div>
