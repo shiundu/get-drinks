@@ -22,9 +22,10 @@ class OrderController extends Controller
         // return view('orders.index', ['orders'=>$orders]);
 
         $orders = DB::table('orders')
-            ->join('customers', 'orders.customer_id', '=', 'customers.id')
-            ->join('order_items', 'orders.id', '=', 'order_items.order_id')
+            ->join('customers', 'customers.id', '=', 'orders.customer_id')
+            ->join('order_items', 'order_items.order_id', '=', 'orders.id')
             ->select('orders.updated_at', DB::raw('(customers.fname, customers.lname) as name'), 'orders.total', 'orders.drop_off')
+            ->where('status', 1)
             ->get();
 
         $items = DB::table('order_items')
