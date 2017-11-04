@@ -17,9 +17,23 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   $orders = Order::all();
-        return view('orders.index', ['orders'=>$orders]);
-        //
+    {
+        // $orders = Order::all();
+        // return view('orders.index', ['orders'=>$orders]);
+
+        $orders = DB::table('orders')
+            ->join('customers', 'orders.customer_id', '=', 'customers.id')
+            ->join('order_items', 'orders.id', '=', 'order_items.order_id')
+            ->select('orders.updated_at', DB::raw('(fname, lname) as name'), 'orders.total', 'orders.drop_off')
+            ->get();
+
+        $items = DB::table('order_items')
+            ->select('order_items.order_id', 'order_items.customer_id', 'order_items.product_id',
+                'order_items.quantity', 'products.name', 'products.price', 'products.currency')
+            ->where('status', 1)
+            ->get();
+            
+        return view('orders.index', ['orders'=>$orders, 'items' => $items]);
     }
 
     /**
@@ -55,7 +69,7 @@ class OrderController extends Controller
                        $total = $total + ($price*$prod) ;
                        // print('product id  : '.$key.', Price : '.$price .', quantity : '. $prod.', Total : '.$total.', count :'.$products);
                     }
-                    
+
                 }
 
             }
@@ -82,7 +96,7 @@ class OrderController extends Controller
                             $order_items->quantity = $qtty;
                             $order_items->save();
                         }
-                    
+
                     }
                 }
             }

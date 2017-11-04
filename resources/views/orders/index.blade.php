@@ -66,7 +66,7 @@
                               <input type="checkbox" class="flat" name="table_records">
                             </td>
                             <td class=" "><?php echo $order->updated_at; ?></td>
-                            <td class=" "><?php echo $order->customer_id; ?></td>
+                            <td class=" "><?php echo $order->name; ?></td>
                             <td class=" "><?php echo $order->products; ?></td>
                             <td class=" "><?php echo $order->total; ?></td>
                             <td class=" "><?php echo $order->drop_off; ?></td>
