@@ -31,8 +31,13 @@ class OrderController extends Controller
         $items = DB::table('order_items')
             ->join('products', 'products.id', '=', 'order_items.product_id')
             ->join('orders', 'orders.id', '=', 'order_items.order_id')
-            ->select('order_items.order_id', 'order_items.customer_id', 'order_items.product_id',
-                'order_items.quantity', 'products.name', 'products.price', 'products.currency')
+            ->select('order_items.customer_id', 
+                DB::raw('order_items.order_id as order_id'),
+                DB::raw('order_items.product_id as product_id'),
+                DB::raw('order_items.quantity as quantity'),
+                DB::raw('products.name as product_name'),
+                DB::raw('products.price as price'),
+                DB::raw('products.currency as quantity'))
             ->where('orders.status', 1)
             ->get();
 

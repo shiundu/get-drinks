@@ -67,7 +67,10 @@
                             </td>
                             <td class=" "><?php echo $order->updated_at; ?></td>
                             <td class=" "><?php echo $order->name; ?></td>
-                            <td class=" "><?php echo $order->products; ?></td>
+                            <td class=" ">
+                              @foreach(items as item)
+                              @endforeach
+                            </td>
                             <td class=" "><?php echo $order->total; ?></td>
                             <td class=" "><?php echo $order->drop_off; ?></td>
                             <td class=" ">
