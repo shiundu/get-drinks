@@ -24,7 +24,7 @@ class OrderController extends Controller
         $orders = DB::table('orders')
             ->join('customers', 'orders.customer_id', '=', 'customers.id')
             ->join('order_items', 'orders.id', '=', 'order_items.order_id')
-            ->select('orders.updated_at', DB::raw('(fname, lname) as name'), 'orders.total', 'orders.drop_off')
+            ->select('orders.updated_at', DB::raw('(customers.fname, customers.lname) as name'), 'orders.total', 'orders.drop_off')
             ->get();
 
         $items = DB::table('order_items')
@@ -32,7 +32,7 @@ class OrderController extends Controller
                 'order_items.quantity', 'products.name', 'products.price', 'products.currency')
             ->where('status', 1)
             ->get();
-            
+
         return view('orders.index', ['orders'=>$orders, 'items' => $items]);
     }
 
