@@ -69,7 +69,7 @@
                             <td class=" "><?php echo $order->name; ?></td>
                             <td class=" ">
                               @foreach($items as $item)
-                                @if($order->order_id == $item->order_id)
+                                @if($order->id == $item->order_id)
                                   <li><?php echo $item->product_name; ?></li>
                                 @endif
                               @endforeach
