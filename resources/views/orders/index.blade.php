@@ -73,9 +73,9 @@
                             <td class=" ">
                               <div class="row">
                                 <div class="btn-group">
-                                  <button class="btn btn-default" type="button">Left</button>
-                                  <button class="btn btn-default" type="button">Middle</button>
-                                  <button class="btn btn-default" type="button">Right</button>
+                                  <button class="btn btn-primary" type="button">Dispatched</button>
+                                  <button class="btn btn-success" type="button">Delivered</button>
+                                  <button class="btn btn-danger" type="button">Delivered</button>
                                 </div>
                               </div>
                             </td>
