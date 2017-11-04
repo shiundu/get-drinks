@@ -69,6 +69,7 @@ class ApiOrderController extends Controller
                 ->where('product_id', $product['product_id'])
                 ->where('order_id', $orders[0]->id)
                 ->update(['quantity' => $product['quantity'] ]);
+
               }
               else {
                 if($key == 'quantity' && count($product) > 0)
@@ -83,6 +84,8 @@ class ApiOrderController extends Controller
                 }
               }
             }
+
+            $this->updateTotal($orders[0]->id);
         }
         elseif($customer){
             $order = new Order;
@@ -177,6 +180,19 @@ class ApiOrderController extends Controller
 
     }
 
+    updateTotal($order_id){
+      $total = 0
+      $order_items = Order_items::where('order_id', $order_id)
+               ->get();
+      foreach ($order_items as $item) {
+        $total = $item['quantity']* $item['price'];
+      }
+
+      Order::where('id', $order_id)
+               ->where('status', 1)
+               ->update(['total' => $total ]);
+
+    }
 
     public function pending_orders($phone_number)
     {   $all_orders  = [];

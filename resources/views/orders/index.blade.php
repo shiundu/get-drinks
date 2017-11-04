@@ -81,7 +81,7 @@
                                 <div class="btn-group">
                                   <button class="btn btn-primary" type="button">Dispatched</button>
                                   <button class="btn btn-success" type="button">Delivered</button>
-                                  <button class="btn btn-danger" type="button">Delivered</button>
+                                  <button class="btn btn-danger" type="button">Delete</button>
                                 </div>
                               </div>
                             </td>
