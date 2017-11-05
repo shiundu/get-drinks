@@ -85,9 +85,15 @@
                             <td class=" ">
                               <div class="row">
                                 <div class="btn-group">
-                                  <a href="/orders/<?php echo $order->id;?>/2" class="btn btn-primary" type="button">Dispatched</a>
-                                  <a href="/orders/<?php echo $order->id;?>/3" class="btn btn-success" type="button">Delivered</a>
-                                  <a href="/orders/<?php echo $order->id;?>/4" class="btn btn-danger" type="button">Delete</a>
+                                  @if($order->status == 3)
+                                  @elseif($order->status == 2)
+                                    <a href="/orders/<?php echo $order->id;?>/3" class="btn btn-success" type="button">Delivered</a>
+                                    <a href="/orders/<?php echo $order->id;?>/4" class="btn btn-danger" type="button">Delete</a>
+                                  @elseif($order->status == 1)
+                                    <a href="/orders/<?php echo $order->id;?>/2" class="btn btn-primary" type="button">dispatched</a>
+                                    <a href="/orders/<?php echo $order->id;?>/3" class="btn btn-success" type="button">Delivered</a>
+                                    <a href="/orders/<?php echo $order->id;?>/4" class="btn btn-danger" type="button">Delete</a>
+                                  @endif
                                 </div>
                               </div>
                             </td>

@@ -138,7 +138,7 @@ class OrderController extends Controller
       Order::where('id', $request->order_id)
        ->update(['status' => $request->status ]);
 
-       return $this->index();
+       return redirect('orders');
     }
 
 
