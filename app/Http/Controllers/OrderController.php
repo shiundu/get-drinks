@@ -25,7 +25,7 @@ class OrderController extends Controller
             ->join('customers', 'customers.id', '=', 'orders.customer_id')
             ->join('order_items', 'order_items.order_id', '=', 'orders.id')
             ->select('orders.id','orders.updated_at', DB::raw('CONCAT(customers.fname, customers.lname) as name'), 'orders.products', 'orders.total', 'orders.drop_off', 'orders.status')
-            ->where('status', 1)
+            ->whereIn('status', [1,2,3])
             ->groupBy('orders.id', 'order_items.order_id', 'customers.id')
             ->get();
 
@@ -39,7 +39,7 @@ class OrderController extends Controller
                 DB::raw('products.name as product_name'),
                 DB::raw('products.price as price'),
                 DB::raw('products.currency as currency'))
-            ->where('orders.status', 1)
+            ->whereIn('orders.status', [1,2,3])
             ->get();
 
         return view('orders.index', ['orders'=>$orders, 'items' => $items]);
@@ -87,6 +87,7 @@ class OrderController extends Controller
             $order->customer_id = $request->customer_id;
             $order->user_id = $request->user_id;
             $order->products = $products;
+            $order->status = 1;
             $order->total = $total;
             $order->drop_off = $request->drop_off;
 
@@ -132,14 +133,19 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id, Request $request)
+    public function editStatus(Request $request)
     {
-      Order::where('id', $id)
+      Order::where('id', $request->order_id)
        ->update(['status' => $request->status ]);
 
        return $this->index();
     }
 
+
+    public function edit($id)
+    {
+      //
+    }
     /**
      * Update the specified resource in storage.
      *

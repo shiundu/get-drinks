@@ -19,6 +19,7 @@ Route::get('/', function () {
 Route::resource('products', 'ProductController');
 
 Route::resource('orders', 'OrderController');
+Route::get('orders/{order_id}/{status}', 'OrderController@editStatus');
 
 Route::resource('companies', 'CompanyController');
 

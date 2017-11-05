@@ -184,11 +184,11 @@ class ApiOrderController extends Controller
       $total = 0;
       $order_items = Order_items::where('order_id', $order_id)
                ->get();
-               
-      foreach ($order_items as $item) {
-        $total = $item['quantity']* $item['price'];
-      }
 
+      foreach ($order_items as $item) {
+        $total = $total + ($item['quantity']* $item['price']);
+      }
+      $total = $total;
       Order::where('id', $order_id)
                ->where('status', 1)
                ->update(['total' => $total ]);
@@ -200,7 +200,7 @@ class ApiOrderController extends Controller
         $customer = Customer::where('phone_number', $phone_number)->get();
         if(count($customer) > 0){
           $orders = Order::where('customer_id', $customer[0]->id)
-                   ->whereIn('status', [1,2,3])
+                   ->whereIn('status', [1,2])
                    ->get();
 
          if(count($orders) > 0){

@@ -62,9 +62,11 @@
                         <tbody>
                            @foreach($orders as $order)
                             @if($order->status == 2)
-                              <tr class="even pointer" style=" backgroundColor: 'blue'">
-                            @elseif($order->status == 2)
-                              <tr class="even pointer" style=" backgroundColor: 'green'">
+                              <tr class="even pointer" bgcolor="#33b5e5">
+                            @elseif($order->status == 3)
+                              <tr class="even pointer" bgcolor="#00C851">
+                            @else
+                              <tr class="even pointer">
                             @endif
                             <td class="a-center ">
                               <input type="checkbox" class="flat" name="table_records">
@@ -83,18 +85,9 @@
                             <td class=" ">
                               <div class="row">
                                 <div class="btn-group">
-                                  <form action="orders/<?php echo $order->id;?>" method="put">
-                                    <input name='status' value="2" hidden="hidden">
-                                    <button class="btn btn-primary" type="button">Dispatched</button>
-                                  </form >
-                                  <form action="orders/<?php echo $order->id;?>" method="put">
-                                    <input name='status' value="3" hidden="hidden">
-                                    <button class="btn btn-success" type="button">Delivered</button>
-                                  </form >
-                                  <form action="orders/<?php echo $order->id;?>" method="put">
-                                    <input name='status' value="4" hidden="hidden">
-                                    <button class="btn btn-danger" type="button">Delete</button>
-                                  </form >
+                                  <a href="/orders/<?php echo $order->id;?>/2" class="btn btn-primary" type="button">Dispatched</a>
+                                  <a href="/orders/<?php echo $order->id;?>/3" class="btn btn-success" type="button">Delivered</a>
+                                  <a href="/orders/<?php echo $order->id;?>/4" class="btn btn-danger" type="button">Delete</a>
                                 </div>
                               </div>
                             </td>
