@@ -28,6 +28,9 @@ class ApiOrderController extends Controller
 
         if(isset($request->customer['customer_id'])){
             $customer_id = $request->customer['customer_id'];
+            $orders = Order::where('customer_id', $customer_id)
+                             ->where('status', 1)
+                             ->get();
         }
         elseif(isset($request->customer['email'])){
             $customer = Customer::where('email', $request->customer['email'])->get();
@@ -35,8 +38,8 @@ class ApiOrderController extends Controller
             if($customer){
               $customer_id = $customer[0]->id;
               $orders = Order::where('customer_id', $customer_id)
-                       ->where('status', 1)
-                       ->get();
+                               ->where('status', 1)
+                               ->get();
             }
             else {
               $customer = null;
@@ -49,14 +52,13 @@ class ApiOrderController extends Controller
           if($customer){
             $customer_id = $customer[0]->id;
             $orders = Order::where('customer_id', $customer_id)
-                     ->whereIn('status', [1,2])
-                     ->get();
-          }
+                             ->where('status', 1)
+                             ->get();
+                  }
           else {
             return $customer = null;
           }
         }
-
 
         if(count($orders) > 0){
             foreach ($request->products as $key => $product) {
@@ -64,11 +66,12 @@ class ApiOrderController extends Controller
               ->where('product_id', $product['product_id'])
               ->where('order_id', $orders[0]->id)
               ->first();
+
               if($order_items){
                 Order_items::where('customer_id', $customer_id)
                 ->where('product_id', $product['product_id'])
                 ->where('order_id', $orders[0]->id)
-                ->update(['quantity' => $product['quantity'] ]);
+                ->update(['quantity' => $order_items['quantity'] + $product['quantity'] ]);
 
               }
               else {
@@ -157,85 +160,58 @@ class ApiOrderController extends Controller
         }
 
 
-        $customer = Order::where('customer_id', $customer_id)
-                 ->first();
-        // $all_orders  = [];
-        // array_push($all_orders, $orders[0]);
-        //
-        // $prod = DB::table('order_items')
-        //         ->join('products', 'products.id', '=', 'order_items.product_id')
-        //         ->select('order_items.order_id', 'order_items.customer_id', 'order_items.product_id',
-        //             'order_items.quantity', 'products.name', 'products.price', 'products.currency')
-        //         ->where('order_id', $orders[0]->id)
-        //         ->where('customer_id', $customer_id)
-        //         ->get();
-        //
-        // $products = array("products"=> $prod);
-        //
-        // array_merge($all_orders, []);
-        // array_push($all_orders, $products);
-        //
-        // return $all_orders;
-
-        $this->pending_orders($customer['phone_number']);
+        return $this->pending_orders($customer_id);
 
     }
 
     public function updateTotal($order_id){
       $total = 0;
-      $order_items = Order_items::where('order_id', $order_id)
-               ->get();
+      $order_items = Order_items::where('order_id', $order_id)->get();
+      $products = Product::all();
 
-      foreach ($order_items as $item) {
-        $total = $total + ($item['quantity']* $item['price']);
+      foreach ($products as $prod) {
+        foreach ($order_items as $item) {
+          if($prod['id'] == $item['product_id']){
+            $total = $total + ($item['quantity']* $prod['price']);
+          }
+        }
       }
-      $total = $total;
-      Order::where('id', $order_id)
-               ->whereIn('status', [1,2])
-               ->update(['total' => $total ]);
+
+      return Order::where('id', $order_id)
+             ->where('status',1)
+             ->update(['total' => $total ]);
 
     }
 
-    public function pending_orders($phone_number)
-    {   $all_orders  = [];
-        $customer = Customer::where('phone_number', $phone_number)->get();
-        if(count($customer) > 0){
-          $orders = Order::where('customer_id', $customer[0]->id)
-                   ->whereIn('status', [1,2])
-                   ->get();
-         $order_count = count($orders);
-         if($order_count > 1){
-           for ($i=0; $i < $order_count ; $i++) {
-             // $order = [];
-             // array_push($order, $orders[$i]);
+    public function pending_orders($id)
+    {
+      $all_orders  = [];
 
-             $prod = DB::table('order_items')
-                   ->join('products', 'products.id', '=', 'order_items.product_id')
-                   ->select('order_items.order_id', 'order_items.customer_id', 'order_items.product_id',
-                       'order_items.quantity', 'products.name', 'products.price', 'products.currency')
-                   ->where('order_id', $orders[0]->id)
-                   ->get();
+      $orders = Order::where('customer_id', $id)
+              ->whereIn('status', [1,2])
+              ->get();
+      $order_count = count($orders);
 
-             $order = new \stdClass();
-             $order = $orders[$i];
-             $order->products = $prod;
-             // $products = array("products"=> $prod);
+      if($order_count > 1){
+        for ($i=0; $i < $order_count ; $i++) {
 
-            //  $myArray[] = (object) array('name' => 'My name');
-            //
-            //  array_merge($order, $products);
-            // //  array_push($order, $products);
+            $prod = DB::table('order_items')
+            ->join('products', 'products.id', '=', 'order_items.product_id')
+            ->select('order_items.order_id', 'order_items.customer_id', 'order_items.product_id',
+            'order_items.quantity', 'products.name', 'products.price', 'products.currency')
+            ->where('order_id', $orders[$i]->id)
+            ->get();
 
-             $all_orders[] = $order;
-           }
+            $order = new \stdClass();
+            $order = $orders[$i];
+            $order->products = $prod;
 
-            return $all_orders;
-         }
-           return $all_orders;
+            $all_orders[] = $order;
         }
-
-
         return $all_orders;
+      }
+
+      return $all_orders;
     }
 
 
