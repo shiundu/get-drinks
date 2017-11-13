@@ -63,7 +63,7 @@
                                 <input type="text"
                                         name="products[<?php echo $product->id; ?>][<?php echo $product->price; ?>]"
                                         class="form-control"
-                                        placeholder="Quantity">
+                                        placeholder="0">
                               </div>
                             </div>
                       @endforeach
