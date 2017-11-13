@@ -46,7 +46,7 @@
                               <input type="checkbox" id="check-all" class="flat">
                             </th>
                             <th class="column-title">Name </th>
-                            <th class="column-title">Industry Date </th>
+                            <th class="column-title">Industry </th>
                             <th class="column-title">Address </th>
                             </th>
                             <th class="bulk-actions" colspan="7">

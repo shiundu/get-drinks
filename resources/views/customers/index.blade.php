@@ -49,7 +49,7 @@
                             <th class="column-title">Last Name </th>
                             <th class="column-title">DOB </th>
                             <th class="column-title">Email </th>
-                            <th class="column-title">Phone NUmber </th>
+                            <th class="column-title">Phone Number </th>
                             <th class="column-title">County </th>
                             <th class="column-title">Neighbourhood </th>
                             <th class="column-title no-link last"><span class="nobr">Action</span>
