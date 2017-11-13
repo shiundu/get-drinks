@@ -14,7 +14,7 @@
 // Route::get('/', function () {
 //     return view('welcome');
 // });
-Route::get('/', 'OrderController@index');
+// Route::get('/', 'OrderController@index');
 
 Route::resource('products', 'ProductController');
 
@@ -24,3 +24,10 @@ Route::get('orders/{order_id}/{status}', 'OrderController@editStatus');
 Route::resource('companies', 'CompanyController');
 
 Route::resource('customers', 'CustomerController');
+
+Auth::routes();
+
+Route::get('register_istadrinks_users', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::get('register', 'Auth\LoginController@showLoginForm')->name('register');
+
+Route::get('/', 'HomeController@index')->name('home');

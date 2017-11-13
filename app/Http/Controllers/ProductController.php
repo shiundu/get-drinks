@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Company;
-
+use App\Category;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +22,6 @@ class ProductController extends Controller
     {
         $products = Product::all();
         return view('products.index', ['products'=>$products]);
-        // return view('products.profile', ['user' => User::findOrFail($id)]);
     }
 
     /**
@@ -30,7 +33,8 @@ class ProductController extends Controller
     {
         //
         $companies = Company::all();
-        return view('products._form', ['companies'=>$companies]);
+        $categories = Category::all();
+        return view('products._form', ['companies'=>$companies, 'categories' => $categories ]);
     }
 
     /**

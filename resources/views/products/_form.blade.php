@@ -1,14 +1,13 @@
 @extends('layouts.page')
 
 @section('content')
-        
+
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
                     @endauth
                 </div>
             @endif
@@ -48,13 +47,24 @@
                           @endforeach
                           </select>
                         </div>
-                      </div> 
+                      </div>
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Category</label>
+                        <div class="col-md-9 col-sm-9 col-xs-12">
+                          <select name="cat_id" class="form-control">
+                            <option >Select Category</option>
+                          @foreach($categories as $category)
+                            <option value="<?php echo $category->id; ?>"><?php echo $category->category_name; ?></option>
+                          @endforeach
+                          </select>
+                        </div>
+                      </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Category</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
                           <input type="text" name="cat_id" class="form-control" placeholder="">
                         </div>
-                      </div> 
+                      </div>
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">Name</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
@@ -79,7 +89,7 @@
                           <input type="text" name="description" class="form-control" placeholder="">
                         </div>
                       </div>
-                      
+
 
                       <div class="ln_solid"></div>
                       <div class="form-group">

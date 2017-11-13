@@ -1,14 +1,13 @@
 @extends('layouts.page')
 
 @section('content')
-        
+
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
                     @endauth
                 </div>
             @endif
@@ -61,16 +60,16 @@
                             <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12"><?php echo $product->name; ?></label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <input type="text" 
+                                <input type="text"
                                         name="products[<?php echo $product->id; ?>][<?php echo $product->price; ?>]"
-                                        class="form-control" 
+                                        class="form-control"
                                         placeholder="Quantity">
                               </div>
                             </div>
                       @endforeach
-                      
-                      
-                      
+
+
+
 
                       <div class="ln_solid"></div>
                       <div class="form-group">

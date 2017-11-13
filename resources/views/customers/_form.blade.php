@@ -1,18 +1,17 @@
 @extends('layouts.page')
 
 @section('content')
-        
+
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
                     @endauth
                 </div>
             @endif
-            
+
             <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
@@ -80,7 +79,7 @@
                           <input type="text" name="neighbourhood" class="form-control" placeholder="Neighbourhood">
                         </div>
                       </div>
-                      
+
 
                       <div class="ln_solid"></div>
                       <div class="form-group">

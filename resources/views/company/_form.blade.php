@@ -1,14 +1,13 @@
 @extends('layouts.page')
 
 @section('content')
-        
+
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
                     @endauth
                 </div>
             @endif
@@ -57,7 +56,7 @@
                           <textarea class="form-control" name="address" rows="3"></textarea>
                         </div>
                       </div>
-                      
+
 
                       <div class="ln_solid"></div>
                       <div class="form-group">

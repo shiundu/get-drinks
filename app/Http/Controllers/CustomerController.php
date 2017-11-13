@@ -7,6 +7,10 @@ use App\Customer;
 
 class CustomerController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +51,7 @@ class CustomerController extends Controller
         $customer->county = $request->county;
         $customer->neighbourhood = $request->neighbourhood;
 
-         
+
         $customer->save();
 
         return $this->index();
